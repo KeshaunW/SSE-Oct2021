@@ -1,6 +1,7 @@
 package jb5.assignment1;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Locale;
 
 interface SortOperation {
@@ -22,16 +23,21 @@ public class PartOne {
         System.out.println("Alphabetical: " + String.join(", ", values));
 
         Arrays.sort(values, (String one, String two) -> {
-            if (one.toLowerCase(Locale.ROOT).contains("e") && one.toLowerCase(Locale.ROOT).contains("e")) {
-                return one.length() - two.length();
-            } else if (one.toLowerCase(Locale.ROOT).contains("e")) {
-                return one.length();
-            } else if (two.toLowerCase(Locale.ROOT).contains("e")) {
-                return one.length();
-            } else {
-                return one.length() - two.length();
+            int a = 0;
+            int b = 0;
+
+            for (int i = 0; i < one.length(); i++) {
+                if (one.toLowerCase().charAt(i) == 'e')
+                    a++;
             }
+
+            for (int j = 0; j < two.length(); j++) {
+                if (two.toLowerCase().charAt(j) == 'e')
+                    b++;
+            }
+
+            return b - a;
         });
-        System.out.println("Alphabetical: " + String.join(", ", values));
+        System.out.println("E first: " + String.join(", ", values));
     }
 }
