@@ -1,0 +1,48 @@
+1)
+SELECT copies.noOfCopies AS noOfCopies
+FROM tbl_book_copies AS copies
+LEFT JOIN tbl_book AS book ON copies.bookId = book.bookId
+LEFT JOIN tbl_library_branch AS branch ON copies.branchId = branch.branchId
+WHERE book.title = "The Lost Tribe" AND branch.branchName = "Sharpstown"
+
+2)
+SELECT branch.branchName as branchName, copies.noOfCopies AS noOfCopies
+FROM tbl_book_copies AS copies
+LEFT JOIN tbl_book AS book ON copies.bookId = book.bookId
+INNER JOIN tbl_library_branch AS branch ON copies.branchId = branch.branchId
+WHERE book.title = "The Lost Tribe"
+
+3)
+SELECT borrower.name as borrowerName
+FROM tbl_borrower AS borrower
+LEFT JOIN tbl_book_loans AS loans on borrower.cardNo = loans.cardNo
+WHERE loans.cardNo IS NULL
+
+4)
+SELECT book.title AS bookTitle, borrower.name AS borrowerName, borrower.address AS borrowerAddress
+FROM tbl_book_loans AS loans
+RIGHT JOIN tbl_borrower AS borrower ON loans.cardNo = borrower.cardNo
+RIGHT JOIN tbl_book AS book ON loans.bookId = book.bookId
+INNER JOIN tbl_branch AS branch on loans.branchId = branch.branchId
+WHERE branch.branchName = "Sharpstown" AND DATE(loans.dueDate) = CURDATE()
+
+5)
+SELECT branch.branchName AS branchName, COUNT(branch.branchId) AS totalBooksLoaned
+FROM tbl_library_branch AS branch
+INNER JOIN tbl_book_loans as loans ON branch.branchId = loans.branchId
+GROUP BY branch.branchId
+
+6)
+SELECT borrower.name AS borrowerName, borrower.address AS borrowerAddress, COUNT(borrower.cardNo) as booksBorrowed
+FROM tbl_borrower AS borrower
+INNER JOIN tbl_book_loans AS loans on borrower.cardNo = loans.cardNo
+GROUP BY borrower.cardNo
+HAVING booksBorrowed > 5
+
+7)
+SELECT book.title AS bookTitle, copies.noOfCopies AS noOfCopies
+FROM tbl_book_copies as copies
+INNER JOIN tbl_book AS book ON copies.bookId = book.bookId
+INNER JOIN tbl_author AS author ON book.authId = author.authorId
+INNER JOIN tbl_library_branch AS branch ON copies.branchId = branch.branchId
+WHERE author.authorName = "Stephen King" AND branch.branchName = "Central"
