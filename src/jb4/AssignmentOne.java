@@ -1,15 +1,15 @@
 package jb4;
 
-public class Singleton {
-    private static volatile Singleton _instance;
+public class AssignmentOne {
+    private static volatile AssignmentOne _instance;
 
-    private Singleton() {}
+    private AssignmentOne() {}
 
-    public static Singleton getInstance() {
+    public static AssignmentOne getInstance() {
         if (_instance == null) {
-            synchronized (Singleton.class) {
+            synchronized (AssignmentOne.class) {
                 if (_instance == null)
-                    _instance = new Singleton();
+                    _instance = new AssignmentOne();
             }
         }
         return _instance;

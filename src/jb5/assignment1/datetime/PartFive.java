@@ -6,7 +6,7 @@ import java.time.YearMonth;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class PartFour {
+public class PartFive {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
